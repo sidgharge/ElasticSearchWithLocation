@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -302,5 +303,10 @@ public class LocationService {
 			latLngs.add(location.getLatLng());
 		}
 		return latLngs;
+	}
+	
+	public List<HousingComplex> getNearByComplexes(@PathVariable double lat, @PathVariable double lon, @PathVariable String distance) throws IOException {
+		List<HousingComplex> locations = elasticService.getNearByLocations("complex", "complex", HousingComplex.class, lat, lon, distance);
+		return locations;
 	}
 }

@@ -86,6 +86,17 @@ public class LocationController {
 			return new ResponseEntity<List<Location>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@GetMapping("/nearbycomplexes/{lat}/{lon}/{distance}")
+	public ResponseEntity<List<HousingComplex>> getNearByComplexes(@PathVariable double lat, @PathVariable double lon, @PathVariable String distance) {
+		try {
+			List<HousingComplex> nearbyLocations = locationService.getNearByComplexes(lat, lon, distance);
+			return new ResponseEntity<List<HousingComplex>>(nearbyLocations, HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<HousingComplex>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	
 
